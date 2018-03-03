@@ -17,7 +17,10 @@ Before you can use Azure Data Lake Analytics to process data, you must create an
 - Location: Select the region where your Azure Data Lake Store is located.
 - Data Lake Store: Select your existing Azure Data Lake Store
 - Pin to dashboard: Not selected
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img2.PNG)
 4. In the Azure portal, view Notifications to verify that deployment has started. Then wait for the resource to be deployed (this can take a few minutes.)
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img3.PNG)
+
 ### Link an Azure Storage Account
 - Azure Data Lake Analytics can access data in the Data Lake Store you associated it with.
 - You can also link additional Data Lake Stores and Azure Storage accounts and process data that is stored in them.
@@ -25,23 +28,32 @@ Before you can use Azure Data Lake Analytics to process data, you must create an
 
 ### Steps
 1. Click All Resources, and then click the Azure Data Lake Analytics account you just provisioned.
-2. In the blade for your Data Lake Analytics account, view the Data Sources page, and then click Add Data Source.
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img4.PNG)
+2. In the blade for your Data Lake Analytics account, view the **Data Sources** page, and then click **Add Data Source**.
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img5.PNG)
 3. In the Add Data Source blade, enter the following details and click Add:
 • **Storage Type**: Azure Storage
 • **Selection Method**: Select Account
 • **Azure Storage**: Select your Azure Storage account
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img6.PNG)
 4. On the **Data Sources page**, verify that both your Azure Data Lake Store and Azure Storage account are listed.
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img7.PNG)
 
 ## Process Data
-
-Azure Data Lake Analytics enables you to process data by writing **U-SQL** code. U-SQL is similar to **Transact-SQL**, but also includes support for C# syntax and data types.
+Azure Data Lake Analytics enables you to **process data** by writing **U-SQL** code. U-SQL is similar to **Transact-SQL**, but also includes support for C# syntax and data types.
 
 1. In the blade for your Data Lake Analytics account, view the **Data Explorer page**.
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img8.PNG)
 2. Under **Storage accounts**, expand your **Azure Storage account** and its **bigdata container**, and select the **data folder**. This should contain the three files that you uploaded in the first lab of this course (customers.txt, products.txt, and reviews.txt).
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img9.PNG)
 3. Click **products.txt** to preview the data it **contains** (if a preview is not shown, you can download the file and open it locally). Note that this file contains a tab-delimited list of products. Note also that some of the product details contain the text “NULL” – this is used in the Color, Size, and Weight columns to indicate that there is no known value for this product.
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img10.PNG)
 4. In the **File Preview pane**, click **Properties** to view the properties of the file, and note the WASB PATH property, which is used to access this file in Azure Storage. The path is in the form **wasb://bigdata@<storageacct>/data/products.txt** (where <storageacct> is the name of your Azure storage account.
-5. Return to the blade for your **Azure Data Lake Store**, and on the **Overview page**, click + New Job.
+  ![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img11.PNG)
+5. Return to the blade for your **Azure Data Lake Store**, and on the **Overview page**, click + **New Job**.
+  ![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img12.PNG)
 6. In the New U-SQL Job blade, change the Job Name to Process Products.
+  ![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img13.PNG)
 7. In the query pane, enter the following U-SQL code (you can copy and paste this from u-sql.txt in the lab folder) – replace <storageacct> with the name of your Azure storage account:
   ```
   @products = EXTRACT ProductID string,
@@ -75,9 +87,10 @@ USING Outputters.Csv(outputHeader:true);
 - Calculates the markup for each product by subtracting the cost from the list price.
 - Stores the cleaned data in a comma-delimited file. 
 9. Click **Submit Job** and observe the job details as it is run. After the job has been prepared, a job graph should be displayed, showing the steps used to execute it.
+  ![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img14.PNG)
 10. When the job has finished, on the **Output tab** and **cleanproducts.csv** to see a preview of the results.
 11. Click Data Explorer and browse to the output folder in your Azure Data Lake Store – this where the cleanproducts.csv file was saved.
-
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img15.PNG)
 ## Exercise 2: Processing Data with HDInsight
 In this exercise, you will create an **Azure HDInsight cluster** and use it to process data in Azure Storage.
 ### Provision an HDInsight Cluster
