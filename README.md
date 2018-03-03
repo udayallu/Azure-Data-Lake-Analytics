@@ -91,10 +91,12 @@ USING Outputters.Csv(outputHeader:true);
 10. When the job has finished, on the **Output tab** and **cleanproducts.csv** to see a preview of the results.
 11. Click Data Explorer and browse to the output folder in your Azure Data Lake Store – this where the cleanproducts.csv file was saved.
 ![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img15.PNG)
+
 ## Exercise 2: Processing Data with HDInsight
 In this exercise, you will create an **Azure HDInsight cluster** and use it to process data in Azure Storage.
 ### Provision an HDInsight Cluster
 1. In the Microsoft Azure portal, in the Hub Menu, click New. Then in the **Data + Analytics** menu, click **HDInsight**
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img16.PNG)
 2. In the **New HDInsight Cluster** blade, enter the following settings, and then click Create:
 - **Cluster Name**: Enter a unique name (and make a note of it!)
 - **Subscription**: Select your Azure subscription
@@ -103,11 +105,13 @@ In this exercise, you will create an **Azure HDInsight cluster** and use it to p
 - **Cluster Operating** System: Linux
 - **HDInsight Version**: Choose the latest version of Spark
 - **Cluster Tier**: Standard
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img17.PNG)
 ### Credentials:
 - **Cluster Login Username**: Enter a user name of your choice (and make a note of it!)
 - **Cluster Login Password**: Enter and confirm a strong password (and make a note of it!)
 - **SSH Username**: Enter a user name of your choice for SSH access (and make a note of it!)
 - **SSH Password**: Use the same password as the cluster login password
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img18.PNG)
 ### Storage:
 - **Primary storage type**: Azure Storage
 - **Select a storage account**: Select your existing Azure Storage account
@@ -116,18 +120,26 @@ In this exercise, you will create an **Azure HDInsight cluster** and use it to p
 - **Number of Worker nodes**: 1
 - **Worker node size**: Leave the default size selected
 - **Head node size**: Leave the default size selected
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img19.PNG)
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img20.PNG)
 ### Advanced Settings: None
 3. In the Azure portal, view **Notifications** to verify that deployment has started. Then wait for the cluster to be deployed (this can take a long time – often 30 minutes or more. Feel free to catch up on your social media networks while you wait!)
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img21.PNG)
 
 ## Process Data using Hive
 Hive is a SQL-like language that is commonly used in **Hadoo**p and **Spark** clusters to process big data.
 1. In the **Azure portal**, if it is not already open, browse to the blade for the **HDInsight cluster** you just created.
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img22.PNG)
 2. In the blade for your cluster, under **Quick Links**, click **Cluster Dashboards**.
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img23.PNG)
 3. In the Cluster Dashboards blade, click **HDInsight cluster dashboard** to open a new browser tab containing the **cluster dashboard**. When prompted, log on using the cluster login and password you specified when provisioning the cluster (be sure to use the cluster login and not the SSH username!)
 4. In the **list of services** that are running on the cluster, click **Hive**.
-5. Under the **summary of Hive service status**, next to Hive View 2.0. click Go To View. After some initialization, the hive query editor will be displayed.
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img24.PNG)
+5. Under the **summary of Hive service status**, next to **Hive View 2.0**. click Go To View. After some initialization, the hive query editor will be displayed.
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img25.PNG)
 6. In the **Hive query editor**, enter the following **HiveQL code** 
 - you can copy and paste this from hive.txt in the lab folder
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img26.PNG)
 - replace all instances of <**storageacct**> with the name of your **Azure storage account**:
 ```
 DROP TABLE IF EXISTS customers;
@@ -168,17 +180,22 @@ SELECT * FROM cleanedcustomers;
 - Loads the modified data into the **cleanedcustomers** table (therefore creating a new text file in the **output folder**).
 - Retrieves all rows from the **cleanedcustomers** table.
 8. Click Execute and wait for the query to complete.
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img27.PNG)
 9. Use **Azure Storage Explorer** or the **Data Explorer in the Azure portal** to view the contents of the **output folder** in the bigdata blob container, and verify that it contains a text file with a name similar to 000000_0. This contains the processed customer data in comma-delimited format.
 
 
 ## Process Data using Spark
 Spark clusters support multiple languages, including Python. You can use the Spark libraries for Python to distribute the data processing work across the nodes in the cluster
 1. In the Azure portal, if it is not already open, browse to the blade for the HDInsight cluster you just created and view the **Cluster Dashboards page**.
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img23.PNG)
 2. Click **Jupyter Notebook** to open a new tab containing the **Jupyter Notebook environment**(if you are prompted to log in, do so using your cluster login and password).
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img28.PNG)
 3. In the **Jupyter folder** tree page, click **Upload**, and then select and upload the **SparkCustomers.ipynb** notebook from the **lab folder** on your computer where you extracted the lab files for this course. 
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img29.PNG)
 - This file contains some **Python code** that uses **Spark libraries** to perform further processing on the **customer data** you cleaned using Hive.
 4. After the SparkCustomers.ipynb notebook has been uploaded, click it to open it in a new browser tab.
 5. Review the notebook, noting that it consists of a series of cells. Each cell contains either some text or some Python code.
+![alt text](https://github.com/udayallu/Azure-Data-Lake-Analytics/blob/master/images/img30.PNG)
 6. Review the code in the cell under the text Load the cleaned customer data generated by Hive, noting that this code loads the output file that was generated by your Hive code in the previous exercise into a dataframe with an appropriate schema. Then edit the code in this cell to replace <storageacct> with the name of your Azure storage account
 7. With the first code cell still selected, click the | button to run the cell. At the top right of the page, next to PySpark3, note that a solid  icon indicates that the code is running. When it has finished, the icon changes to .
 8. Review the results produced by the code, which show the first 20 rows of the data generated by Hive.
